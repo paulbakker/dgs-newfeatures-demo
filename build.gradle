@@ -1,0 +1,36 @@
+plugins {
+    id 'org.springframework.boot' version '2.4.4'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+    id("com.netflix.dgs.codegen") version "4.4.1"
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+    mavenCentral()
+    maven {
+        url = "https://netflixoss.jfrog.io/artifactory/maven-oss-candidates/"
+    }
+}
+
+dependencies {
+    implementation "com.netflix.graphql.dgs:graphql-dgs-spring-boot-starter:3.10.0-rc.1"
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+
+    implementation("com.graphql-java:graphql-java-extended-scalars:1.0")
+    implementation("com.github.javafaker:javafaker:1.+")
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+generateJava {
+    packageName = "com.example.demo.generated"
+    generateClient = true
+}
